@@ -5,6 +5,7 @@ require('dotenv').config();
 const superAdminRoutes = require('./routes/superAdminRoutes');
 const agentRoutes = require('./routes/agentRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
+const dishRoutes = require('./routes/dishRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/api/superadmin', superAdminRoutes);
 app.use('/api/agents', agentRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/dishes', dishRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
