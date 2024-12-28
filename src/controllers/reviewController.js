@@ -1,5 +1,6 @@
 const Review = require('../models/Review');
 
+
 // Create Review
 const createReview = async (req, res) => {
     try {
@@ -11,12 +12,11 @@ const createReview = async (req, res) => {
     }
 };
 
-// Get All Reviews with Filtering and Sorting
 const getReviews = async (req, res) => {
     try {
         const { dish_id, destination_id, agent_id, sort } = req.query;
 
-        // Build the filter object
+   
         const filter = {};
         if (dish_id) {
             filter.dish_id = dish_id;
@@ -31,7 +31,7 @@ const getReviews = async (req, res) => {
         // Build the sort object
         const sortOptions = {};
         if (sort) {
-            sortOptions.rating = sort === 'desc' ? -1 : 1; // Sort by rating, descending or ascending
+            sortOptions.rating = sort === 'desc' ? -1 : 1; 
         }
 
         const reviews = await Review.find(filter)

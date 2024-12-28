@@ -2,19 +2,16 @@ const Agent = require('../models/Agent');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// Generate JWT Token
+
 const generateToken = (agent) => {
     return jwt.sign({ _id: agent._id.toString() }, process.env.JWT_SECRET, {
         expiresIn: '24h'
     });
 };
-
-// Login Agent
 const loginAgent = async (req, res) => {
     try {
-        const { login, password } = req.body; // login can be email or phone_number
-        
-        // Check if login is email or phone number
+        const { login, password } = req.body; 
+    
         const agent = await Agent.findOne({
             $or: [
                 { email: login },
@@ -36,9 +33,8 @@ const loginAgent = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
+}; 
 
-// Create Agent
 const createAgent = async (req, res) => {
     try {
         const { name, email, phone_number, password, bio, address } = req.body;
@@ -61,12 +57,11 @@ const createAgent = async (req, res) => {
     }
 };
 
-// Get Agent Profile
+
 const getAgentProfile = async (req, res) => {
     res.json(req.agent);
 };
 
-// Update Agent
 const updateAgent = async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'email', 'phone_number', 'password', 'bio', 'address', 'logo'];
@@ -92,7 +87,7 @@ const updateAgent = async (req, res) => {
     }
 };
 
-// Delete Agent
+
 const deleteAgent = async (req, res) => {
     try {
         await req.agent.remove();

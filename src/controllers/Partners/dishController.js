@@ -1,4 +1,4 @@
-const Dish = require('../models/Dish');
+const Dish = require('../../models/Dish');
 
 // Create Dish
 const createDish = async (req, res) => {
@@ -18,22 +18,22 @@ const getDishes = async (req, res) => {
         
         // Handle filters based on query parameters
         if (req.query.name) {
-            filters.name = { $regex: req.query.name, $options: 'i' }; // Case-insensitive search
+            filters.name = { $regex: req.query.name, $options: 'i' }; 
         }
         if (req.query.category) {
             filters.category = req.query.category;
         }
         if (req.query.price) {
-            filters.price = { $lte: req.query.price }; // Filter by price less than or equal to
+            filters.price = { $lte: req.query.price }; 
         }
         if (req.query.discounted_price) {
             filters.discounted_price = { $lte: req.query.discounted_price }; // Filter by discounted price
         }
         if (req.query.partner_id) {
-            filters.partner_id = req.query.partner_id; // Filter by partner ID
+            filters.partner_id = req.query.partner_id; 
         }
         if (req.query.availability) {
-            filters.availability = req.query.availability == 'true'; // Filter by availability
+            filters.availability = req.query.availability == 'true';
         }
 
         const dishes = await Dish.find(filters);

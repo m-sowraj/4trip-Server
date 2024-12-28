@@ -1,4 +1,4 @@
-const Booking = require('../models/Booking');
+const Booking = require('../../../models/Booking');
 
 // Create Booking
 const createBooking = async (req, res) => {
@@ -30,7 +30,6 @@ const verifyBooking = async (req, res) => {
     }
 };
 
-// Get Booking Details
 const getBooking = async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id)
