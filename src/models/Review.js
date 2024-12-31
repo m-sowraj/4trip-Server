@@ -4,7 +4,7 @@ const reviewSchema = new mongoose.Schema({
     reviewType: {
         type: String,
         required: true,
-        enum: ['dish', 'destination' , 'agent' ], 
+        enum: ['dish', 'destination' , 'partner' ], 
     },
     content: {
         type: String,
@@ -16,9 +16,9 @@ const reviewSchema = new mongoose.Schema({
         min: 1,
         max: 5,
     },
-    agent_id: {
+    registration_id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Agent',
+        ref: 'RegistrationType',
         required: true,
     },
     dish_id: {
