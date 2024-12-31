@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const {
-    loginSuperAdmin,
-    createSuperAdmin,
-    getSuperAdmin,
-    updateSuperAdmin,
-    deleteSuperAdmin
-} = require('../controllers/superAdminController');
+const {createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,placesToVist,loginSuperAdmin,placesToVisit,getPlaceToVist}=require('../controllers/Superadmin/superAdminController')
 
-// Public routes
-router.post('/login', loginSuperAdmin);
-router.post('/register', createSuperAdmin);
 
-// Protected routes (require authentication)
-router.get('/profile', auth, getSuperAdmin);
-router.patch('/update', auth, updateSuperAdmin);
-router.delete('/delete', auth, deleteSuperAdmin);
+const uploadFields = [
+    { name: 'image', maxCount: 10 }, // Allow up to 5 images
+    { name: 'video', maxCount: 3 }, // Allow up to 3 videos
+  ];
+  
+  router.post('/places', upload.fields(uploadFields), placesToVisit);
+  router.get('/completed_data',getReviewCompletedData);
+  router.get('/reviewdata',getYetToBeReviewedData);
+  router.post('/login',loginSuperAdmin);
+ router.get('/allplaces',getPlaceToVist)
 
 module.exports = router; 

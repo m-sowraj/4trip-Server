@@ -1,59 +1,67 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const registrationType = new mongoose.Schema({
-  business_name: {
-    type: String,
-    required: true,
-    trim: true,
+const registrationType = new mongoose.Schema(
+  {
+    business_name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    owner_name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    phone_number: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    select_category: {
+      type: String,
+      enum: ["restaurant", "shop", "activities"],
+      trim: true,
+    },
+    reg_type: {
+      type: String,
+      required: true,
+      enum: ["agent", "partner"],
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    recordDate: {
+      type: Date,
+      default: Date.now,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isNew: {
+      type: Boolean,
+      default: true,
+    },
+    image: 
+    { 
+      type: Buffer 
+    },
   },
-  owner_name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  phone_number: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  select_category: {
-    type: String,
-    enum: ['restaurant', 'shop', 'activities'],
-    trim: true,
-  },
-  reg_type: {
-    type: String,
-    required: true,
-    enum: ['agent', 'partner'],
-    trim:true
-  },
-  password: {
-    type: String,
-    required: true,
-    trim:true
-  },
-  recordDate: {
-    type: Date,
-    default: Date.now, 
-  },
-  isActive:{
-    type:Boolean,
-    default:false
-  },
-  isNew:{
-    type:Boolean,
-    default:true
+  {
+    timestamps: true,
   }
-}, {
-  timestamps: true, 
-});
+);
 
-const Agent = mongoose.model('registrationType', registrationType);
+const Agent = mongoose.model("registrationType", registrationType);
 module.exports = Agent;

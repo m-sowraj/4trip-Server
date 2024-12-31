@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const Registration = async (req, res) => {
   try {
-    // Check if the email or phone number is already registered
+    
     const checkByMail = await RegistrationModel.findOne({ email: req.body.email });
     const checkByPhone = await RegistrationModel.findOne({ phone_number: req.body.phone_number });
 

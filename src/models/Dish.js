@@ -14,7 +14,7 @@ const dishSchema = new mongoose.Schema({
         type: Number,
     },
     image: {
-        type: String,
+        type: Buffer,
         trim: true,
     },
     description: {
@@ -26,18 +26,20 @@ const dishSchema = new mongoose.Schema({
         enum: ['veg', 'non-veg', 'spicy', 'no garlic or onion', 'best seller', 'dish of the day'],
         required: true,
     },
-    partner_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Partner', 
-        required: true,
-    },
     availability: {
         type: Boolean,
         default: true, 
-    }
+    },
+    partner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Agent', 
+    required: true,
+  },
 }, {
     timestamps: true
 });
 
 const Dish = mongoose.model('Dish', dishSchema);
 module.exports = Dish; 
+
+
