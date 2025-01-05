@@ -12,7 +12,7 @@ const createReview = async (req, res) => {
 
 const getReviews = async (req, res) => {
     try {
-        const { dish_id, destination_id, agent_id, sort } = req.query;
+        const { dish_id, destination_id, registration_id, sort , type } = req.query;
 
    
         const filter = {};
@@ -23,7 +23,11 @@ const getReviews = async (req, res) => {
             filter.destination_id = destination_id;
         }
         if (agent_id) {
-            filter.agent_id = agent_id;
+            filter.registration_id = registration_id;
+        }
+
+        if (type) {
+            filter.reviewType = type;
         }
         const sortOptions = {};
         if (sort) {
@@ -31,7 +35,7 @@ const getReviews = async (req, res) => {
         }
 
         const reviews = await Review.find(filter)
-            .populate('agent_id')
+            .populate('registration_id')
             .populate('dish_id')
             .populate('destination_id')
             .sort(sortOptions);

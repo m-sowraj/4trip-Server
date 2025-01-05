@@ -35,6 +35,23 @@ const dishSchema = new mongoose.Schema({
     ref: 'Agent', 
     required: true,
   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    },
+    registration_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'registrationType',
+        required: true
+    },
 }, {
     timestamps: true
 });
