@@ -1,7 +1,5 @@
 const Review = require('../models/Review');
 
-
-// Create Review
 const createReview = async (req, res) => {
     try {
         const review = new Review(req.body);
@@ -27,8 +25,6 @@ const getReviews = async (req, res) => {
         if (agent_id) {
             filter.agent_id = agent_id;
         }
-
-        // Build the sort object
         const sortOptions = {};
         if (sort) {
             sortOptions.rating = sort === 'desc' ? -1 : 1; 

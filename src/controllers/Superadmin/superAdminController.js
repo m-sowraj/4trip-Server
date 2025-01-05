@@ -47,8 +47,6 @@ const createSuperAdmin = async (req, res) => {
     }
 };
 
-
-
 const getReviewCompletedData = async (req, res) => {
     const { index = 0, limit = 50 } = req.body;
   
@@ -173,11 +171,10 @@ catch (error) {
 
   }
 
-  }
+}
 
 
-
-  module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist}
+module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist}
 
 
   

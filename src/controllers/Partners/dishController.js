@@ -40,7 +40,6 @@ const getDishes = async (req, res) => {
     }
 };
 
-// Get Dish by ID
 const getDishById = async (req, res) => {
     try {
         const dish = await Dish.findById(req.params.id);
