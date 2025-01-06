@@ -7,15 +7,15 @@ const {
     getAgentProfile,
     updateAgent,
     deleteAgent
-} = require('../controllers/agentController');
+} = require('../controllers/Agent/agentController');
 
 // Public routes
 router.post('/login', loginAgent);
 router.post('/register', createAgent);
 
 // Protected routes
-router.get('/profile', agentAuth, getAgentProfile);
-router.patch('/update', agentAuth, updateAgent);
-router.delete('/delete', agentAuth, deleteAgent);
+router.get('/profile', getAgentProfile);
+router.patch('/update', updateAgent);
+router.delete('/delete', deleteAgent);
 
 module.exports = router; 

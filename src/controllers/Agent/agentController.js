@@ -1,4 +1,4 @@
-const Agent = require('../models/Agent');
+const Agent = require('./../../models/Registration');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 

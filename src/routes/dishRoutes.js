@@ -6,7 +6,7 @@ const {
     getDishById,
     updateDish,
     deleteDish
-} = require('../controllers/dishController');
+} = require('./../controllers/Partners/dishController');
 const agentAuth = require('../middleware/agentAuth');
 
 // Public routes

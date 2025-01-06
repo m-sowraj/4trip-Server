@@ -7,7 +7,7 @@ const {
     getBooking,
     updateBooking,
     deleteBooking
-} = require('../controllers/bookingController');
+} = require('./../controllers/Agent/CustomerSide/bookingController');
 
 // Public routes
 router.post('/verify', verifyBooking);

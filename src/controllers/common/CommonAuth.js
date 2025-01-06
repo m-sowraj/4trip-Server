@@ -24,6 +24,64 @@ const Registration = async (req, res) => {
   }
 };
 
-module.exports = Registration;
+const Login = async (req, res) => {
+  try {
+    const user = await RegistrationModel.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    res.status(200).json({ message: "Login successful", data: user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const GetUser = async (req, res) => {
+  try {
+    const user = await RegistrationModel.findById(req.params.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ data: user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const GetAllUsers = async (req, res) => {
+  try {
+     filters = {};
+    if (req.query.type) {
+      console.log(req.query.type);
+      filters.reg_type = req.query.type;
+    }
+    if (req.query.status) {
+      filters.status = req.query.status;
+    }
+    console.log(filters);
+    const users = await RegistrationModel.find(filters).select('-password');
+    res.status(200).json({ data: users });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const UpdateUser = async (req, res) => {
+  try {
+    const user = await RegistrationModel.findByIdAndUpdate(req.params.id, req.body, { new: true }).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "User updated successfully", data: user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { Registration, Login, GetUser, GetAllUsers, UpdateUser };
 
 
