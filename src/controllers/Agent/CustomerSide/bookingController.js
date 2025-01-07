@@ -44,6 +44,20 @@ const getBooking = async (req, res) => {
     }
 };
 
+const getallBooking = async (req, res) => {
+    try {
+        const booking = await Booking.find()
+            .populate('agent_id')
+            .populate('Destination_id');
+        if (!booking) {
+            return res.status(404).json({ error: 'Booking not found' });
+        }
+        res.json(booking);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 // Update Booking
 const updateBooking = async (req, res) => {
     const updates = Object.keys(req.body);
@@ -86,5 +100,6 @@ module.exports = {
     verifyBooking,
     getBooking,
     updateBooking,
-    deleteBooking
+    deleteBooking,
+    getallBooking
 }; 

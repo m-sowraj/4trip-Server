@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
   agent_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Agent',
+    ref: 'registrationType',
     required: true
   },
   email: {
@@ -24,7 +24,7 @@ const bookingSchema = new mongoose.Schema({
   Destination_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Destination' 
+    ref: 'SuperAdmin' 
   }
 }, {
   timestamps: true

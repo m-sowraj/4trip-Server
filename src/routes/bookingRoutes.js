@@ -6,16 +6,18 @@ const {
     verifyBooking,
     getBooking,
     updateBooking,
-    deleteBooking
+    deleteBooking,
+    getallBooking
 } = require('./../controllers/Agent/CustomerSide/bookingController');
 
 // Public routes
 router.post('/verify', verifyBooking);
 router.get('/:id', getBooking);
+router.get('/', getallBooking);
 
 // Protected routes (only agents can create/update/delete bookings)
-router.post('/', agentAuth, createBooking);
-router.patch('/:id', agentAuth, updateBooking);
-router.delete('/:id', agentAuth, deleteBooking);
+router.post('/',  createBooking);
+router.patch('/:id', updateBooking);
+router.delete('/:id',  deleteBooking);
 
 module.exports = router; 
