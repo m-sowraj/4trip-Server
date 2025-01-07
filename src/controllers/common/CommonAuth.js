@@ -1,5 +1,6 @@
 const RegistrationModel = require('../../models/Registration');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Registration = async (req, res) => {
   try {
@@ -26,6 +27,7 @@ const Registration = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
+    if (req.body.email) {
     const user = await RegistrationModel.findOne({ email: req.body.email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -34,7 +36,25 @@ const Login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-    res.status(200).json({ message: "Login successful", data: user });
+    const token = jwt.sign({ id: user._id }, 'your_jwt_secret_key', { expiresIn: '7d' });
+    res.status(200).json({ message: "Login successful", data: user, token });
+  }
+  else if (req.body.phone_number) {
+    const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid phone number or password" });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid phone number or password" });
+    }
+    const token = jwt.sign({ id: user._id  }, 'your_jwt_secret_key', { expiresIn: '7d' });
+    res.status(200).json({ message: "Login successful", data: user, token });
+  }
+
+
+
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

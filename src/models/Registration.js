@@ -57,7 +57,37 @@ const registrationType = new mongoose.Schema(
     { 
       type: Buffer 
     },
+    address: {
+      type: String,
+      default: '',
+    },
+    city: {
+      type: String,
+      default: '',
+    },
+    pincode: {
+      type: String,
+      default: '',
+    },
+    businessHours: {
+      days: {
+        type: [String], 
+        default: [],
+      },
+      openingTime: {
+        type: String,
+        default: '',
+      },
+      closingTime: {
+        type: String,
+        default: '',
+      },
+      
   },
+  shopType: {
+    type: String,
+    default: '',
+  }},
   {
     timestamps: true,
   }
