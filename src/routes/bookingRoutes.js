@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const agentAuth = require('../middleware/agentAuth');
+const agentAuth = require('../middleware/userAuth');
 const {
     createBooking,
     verifyBooking,

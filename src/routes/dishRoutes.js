@@ -7,7 +7,7 @@ const {
     updateDish,
     deleteDish
 } = require('./../controllers/Partners/dishController');
-const agentAuth = require('../middleware/agentAuth');
+const agentAuth = require('../middleware/userAuth');
 
 // Public routes
 router.post('/', createDish);

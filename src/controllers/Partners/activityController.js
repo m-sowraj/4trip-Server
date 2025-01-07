@@ -4,7 +4,8 @@ const createActivity = async (req, res) => {
         try {
             const activity = new Activity({
                 ...req.body,
-                registration_id: req.user.id
+                registration_id: req.user._id,
+                CreatedBy: req.user._id
             });
             await activity.save();
             res.status(201).json({ success: true, data: activity });

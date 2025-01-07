@@ -7,6 +7,7 @@ const agentRoutes = require('./src/routes/agentRoutes');
 const bookingRoutes = require('./src/routes/bookingRoutes');
 const dishRoutes = require('./src/routes/dishRoutes');
 const CommonAuthRoutes = require('./src/routes/commonauth')
+const activityRoutes = require('./src/routes/activityRoutes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/agents', agentRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/dishes', dishRoutes);
 app.use('/api/commonauth',CommonAuthRoutes)
+app.use("/api/activity", activityRoutes);
 
 
 // Error handling middleware

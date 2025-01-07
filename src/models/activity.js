@@ -39,7 +39,7 @@ const activitySchema = new mongoose.Schema({
         required: true
     },
     slots: [{
-        type: string
+        type: String
     }
     ],
     discount_percentage: {
@@ -52,7 +52,7 @@ const activitySchema = new mongoose.Schema({
         type: String
     }],
     status: {
-        type: bool,
+        type: Boolean,
         default: true
     },
     createdAt: {
