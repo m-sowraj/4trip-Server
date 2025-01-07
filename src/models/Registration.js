@@ -32,7 +32,7 @@ const registrationType = new mongoose.Schema(
     reg_type: {
       type: String,
       required: true,
-      enum: ["agent", "partner"],
+      enum: ["agent", "partner" , "superadmin"],
       trim: true,
     },
     password: {

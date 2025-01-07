@@ -3,15 +3,16 @@ const RegistrationDb=require('../../models/Registration')
 const SuperAdminDb=require('../../models/SuperAdmin')
 const multer = require('multer');
 const storage = multer.memoryStorage();
+const bcrypt = require('bcrypt');
 const upload = multer({ storage: multer.memoryStorage() }); 
 
 
 const loginSuperAdmin = async (req, res) => {
     try {
         const { phone_number, password } = req.body;
-        const check_phoneNumber = await RegistrationDb.findOne({ phone_number });
+        const admin = await RegistrationDb.findOne({ phone_number , reg_type: 'superadmin' });
 
-        if (!check_phoneNumber) {
+        if (!admin) {
             return res.status(401).json({ error: 'Invalid login credentials' });
         }
 
@@ -19,7 +20,8 @@ const loginSuperAdmin = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ error: 'Invalid login credentials' });
         }
-        const token = generateToken(admin);
+        const token = jwt.sign({ id: admin._id }, 'your_jwt_secret_key', { expiresIn: '7d' });
+
         res.json({ admin, token });
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -112,7 +114,7 @@ const getReviewCompletedData = async (req, res) => {
   
 
   const placesToVisit = async (req, res) => {
-    const { place_name, Location, Nearby, best_time } = req.body;
+    const { place_name, Location, Nearby, best_time , latitude,longitude } = req.body;
   
     try {
     
@@ -121,29 +123,30 @@ const getReviewCompletedData = async (req, res) => {
       }
   
 
-      const imageFiles = req.files['image'] || [];
-      const videoFiles = req.files['video'] || [];
+      // const imageFiles = req.files['image'] || [];
+      // const videoFiles = req.files['video'] || [];
   
-      const images = imageFiles.map((file) => ({
-        data: file.buffer, 
-        mimeType: file.mimetype,
-        originalName: file.originalname, 
-      }));
+      // const images = imageFiles.map((file) => ({
+      //   data: file.buffer, 
+      //   mimeType: file.mimetype,
+      //   originalName: file.originalname, 
+      // }));
   
-      const videos = videoFiles.map((file) => ({
-        data: file.buffer, 
-        mimeType: file.mimetype,
-        originalName: file.originalname, 
-      }));
+      // const videos = videoFiles.map((file) => ({
+      //   data: file.buffer, 
+      //   mimeType: file.mimetype,
+      //   originalName: file.originalname, 
+      // }));
 
       const newPlace = new SuperAdminDb({
         place_name,
-        Location,
-        Nearby,
-        best_time,
+        location:Location,
+        near_by_attractions:Nearby,
+        best_time_to_visit:best_time,
         longitude,
         latitude,
-        media: { images, videos }, 
+        short_summary:req.body.short_summary,
+        // media: { images, videos }, 
       });
   
       await newPlace.save();
