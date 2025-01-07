@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cors = require('cors');
 
 const superAdminRoutes = require('./src/routes/superAdminRoutes');
 const agentRoutes = require('./src/routes/agentRoutes');
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
