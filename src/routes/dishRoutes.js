@@ -15,7 +15,7 @@ router.get('/', getDishes);
 router.get('/:id', getDishById);
 
 //protected-routes
-router.patch('/:id',agentAuth, updateDish);
-router.delete('/:id',agentAuth, deleteDish);
+router.put('/:id', updateDish);
+router.delete('/:id', deleteDish);
 
 module.exports = router; 

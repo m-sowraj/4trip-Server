@@ -32,11 +32,7 @@ const dishSchema = new mongoose.Schema({
     },
     partner_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Agent', 
-    required: true,
-  },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    ref: 'registrationType', 
     required: true,
   },
     createdAt: {
@@ -47,11 +43,14 @@ const dishSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    registration_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'registrationType',
-        required: true
+    is_deleted: {
+        type: Boolean,
+        default: false
     },
+    available: {
+        type: Boolean,
+        default: true
+    }
 }, {
     timestamps: true
 });

@@ -3,7 +3,7 @@ const ManageBooking = require('../../models/managebooking');
 
 const createBooking = async (req, res) => {
     try {
-        req.body.createdBy = req.user.id;
+        req.body.createdBy = req.user._id;
         const newBooking = new ManageBooking(req.body);
         await newBooking.save();
         res.status(201).json(newBooking);
@@ -28,7 +28,7 @@ const editBooking = async (req, res) => {
 const getBookingById = async (req, res) => {
     try {
         const { id } = req.params;
-        const booking = await ManageBooking.findById(id).populate('registrationId');
+        const booking = await ManageBooking.findById(id).populate('createdBy');
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found' });
         }
@@ -45,7 +45,7 @@ const getManyBookings = async (req, res) => {
         if (registrationId) filters.registrationId = registrationId;
         if (type) filters.type = type;
 
-        const bookings = await ManageBooking.find(filters).populate('registrationId').populate('activityId');
+        const bookings = await ManageBooking.find(filters).populate('createdBy').populate('activityId');
         res.json(bookings);
     } catch (error) {
         res.status(400).json({ message: error.message });

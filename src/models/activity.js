@@ -66,6 +66,10 @@ const activitySchema = new mongoose.Schema({
     CreatedBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+    },
+    is_deleted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

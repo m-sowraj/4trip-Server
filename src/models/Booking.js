@@ -25,7 +25,24 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'SuperAdmin' 
-  }
+  },
+ 
+  "amt_earned": {
+    type: Number,
+    required: true
+  },
+  "start_date": {
+    type: Date,
+    required: true
+  },
+  "end_date": {
+    type: Date,
+    required: true
+  },
+  is_deleted: {
+    type: Boolean,
+    default: false
+}
 }, {
   timestamps: true
 });

@@ -21,6 +21,10 @@ const reviewSchema = new mongoose.Schema({
         ref: 'RegistrationType',
         required: true,
     },
+    is_deleted: {
+        type: Boolean,
+        default: false
+    },
     dish_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Dish',

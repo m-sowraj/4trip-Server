@@ -33,6 +33,10 @@ const SuperAdminSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  is_deleted: {
+    type: Boolean,
+    default: false
+},
   media: {
     images: [
       {

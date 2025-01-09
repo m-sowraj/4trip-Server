@@ -84,6 +84,14 @@ const registrationType = new mongoose.Schema(
       },
       
   },
+  is_deleted: {
+    type: Boolean,
+    default: false
+},
+status:{
+  type: "String",
+  
+},
   shopType: {
     type: String,
     default: '',
