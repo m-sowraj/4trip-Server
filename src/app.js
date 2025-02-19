@@ -7,6 +7,7 @@ const agentRoutes = require('./routes/agentRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const dishRoutes = require('./routes/dishRoutes');
 const managebookingRoutes = require('./routes/managebookingRoutes');
+const locationRoutes = require('./routes/locationRoutes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/agents', agentRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/dishes', dishRoutes);
 app.use('/api/managebooking', managebookingRoutes);
+app.use('/api/locations', locationRoutes);
 
 
 // Error handling middleware
