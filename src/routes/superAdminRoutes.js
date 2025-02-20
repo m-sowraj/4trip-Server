@@ -27,9 +27,9 @@ const {
   router.get('/reviewdata',getYetToBeReviewedData);
   router.post('/login',loginSuperAdmin);
  router.get('/allplaces',getPlaceToVist)
- router.post('/things-to-carry', addThingsToCarry);
- router.get('/things-to-carry/:location_id', getThingsToCarry);
- router.put('/things-to-carry/:location_id/:item_id', updateThingsToCarry);
- router.delete('/things-to-carry/:location_id/:item_id', deleteThingsToCarry);
+ router.post('/thingstocarry', addThingsToCarry);
+ router.get('/thingstocarry/:location_id', getThingsToCarry);
+ router.put('/thingstocarry/:location_id/:item_id', updateThingsToCarry);
+ router.delete('/thingstocarry/:location_id/:item_id', deleteThingsToCarry);
 
 module.exports = router; 
