@@ -74,14 +74,20 @@ const GetUser = async (req, res) => {
 
 const GetAllUsers = async (req, res) => {
   try {
-     filters = {};
+    const filters = {
+      is_deleted: false
+    };
+    
     if (req.query.type) {
-      console.log(req.query.type);
       filters.reg_type = req.query.type;
     }
     if (req.query.status) {
       filters.status = req.query.status;
     }
+    if (req.query.isNew !== undefined) {
+      filters.isNew = req.query.isNew === 'true';
+    }
+    
     console.log(filters);
     const users = await RegistrationModel.find(filters).select('-password');
     res.status(200).json({ data: users });
