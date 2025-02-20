@@ -85,7 +85,7 @@ const GetAllUsers = async (req, res) => {
       filters.status = req.query.status;
     }
     if (req.query.isNew !== undefined) {
-      filters.isNew = req.query.isNew === 'true';
+      filters.isNew = req.query.isNew == 'true';
     }
     
     console.log(filters);
