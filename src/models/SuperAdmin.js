@@ -52,8 +52,7 @@ const SuperAdminSchema = new mongoose.Schema({
         originalName: String, 
       },
     ],
-  },
-
+  }
 });
 
 module.exports = mongoose.model('SuperAdmin', SuperAdminSchema);

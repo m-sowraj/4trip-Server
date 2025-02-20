@@ -5,6 +5,7 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const bcrypt = require('bcrypt');
 const upload = multer({ storage: multer.memoryStorage() }); 
+const ThingsToCarryDb = require('../../models/ThingsToCarry');
 
 
 const loginSuperAdmin = async (req, res) => {
@@ -212,7 +213,144 @@ const updatePlace = async (req, res) => {
   }
 };
 
-module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist,updatePlace}
+const addThingsToCarry = async (req, res) => {
+  try {
+    const { name, location_id } = req.body;
+
+    if (!name || !location_id) {
+      return res.status(400).json({ message: 'Name and location_id are required' });
+    }
+
+    const location = await SuperAdminDb.findOne({ 
+      _id: location_id,
+      is_deleted: false 
+    });
+
+    if (!location) {
+      return res.status(404).json({ message: 'Location not found' });
+    }
+
+    const thingToCarry = new ThingsToCarryDb({
+      name,
+      location_id
+    });
+
+    await thingToCarry.save();
+
+    res.status(201).json({ 
+      message: 'Things to carry added successfully',
+      data: thingToCarry 
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getThingsToCarry = async (req, res) => {
+  try {
+    const { location_id } = req.params;
+
+    const location = await SuperAdminDb.findOne({ 
+      _id: location_id,
+      is_deleted: false 
+    });
+
+    if (!location) {
+      return res.status(404).json({ message: 'Location not found' });
+    }
+
+    const thingsToCarry = await ThingsToCarryDb.find({ 
+      location_id,
+      is_deleted: false 
+    });
+
+    res.status(200).json({
+      data: thingsToCarry.map(item => ({
+        id: item._id,
+        name: item.name,
+        location_name: location.place_name
+      }))
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const updateThingsToCarry = async (req, res) => {
+  try {
+    const { location_id, item_id } = req.params;
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ message: 'Name is required' });
+    }
+
+    const location = await SuperAdminDb.findOne({
+      _id: location_id,
+      is_deleted: false
+    });
+
+    if (!location) {
+      return res.status(404).json({ message: 'Location not found' });
+    }
+
+    const updatedItem = await ThingsToCarryDb.findOneAndUpdate(
+      { 
+        _id: item_id,
+        location_id,
+        is_deleted: false
+      },
+      { name },
+      { new: true }
+    );
+
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    res.status(200).json({
+      message: 'Things to carry updated successfully',
+      data: updatedItem
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteThingsToCarry = async (req, res) => {
+  try {
+    const { location_id, item_id } = req.params;
+
+    const location = await SuperAdminDb.findOne({
+      _id: location_id,
+      is_deleted: false
+    });
+
+    if (!location) {
+      return res.status(404).json({ message: 'Location not found' });
+    }
+
+    const item = await ThingsToCarryDb.findOneAndUpdate(
+      {
+        _id: item_id,
+        location_id,
+        is_deleted: false
+      },
+      { is_deleted: true },
+      { new: true }
+    );
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    res.status(200).json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist,updatePlace,addThingsToCarry,getThingsToCarry,updateThingsToCarry,deleteThingsToCarry}
 
 
   
