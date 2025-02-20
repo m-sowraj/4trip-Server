@@ -24,7 +24,7 @@ const bookingSchema = new mongoose.Schema({
   Destination_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'SuperAdmin' 
+    ref: 'Location' 
   },
  
   "amt_earned": {
