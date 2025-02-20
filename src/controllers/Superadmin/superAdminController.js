@@ -6,6 +6,8 @@ const storage = multer.memoryStorage();
 const bcrypt = require('bcrypt');
 const upload = multer({ storage: multer.memoryStorage() }); 
 const ThingsToCarryDb = require('../../models/ThingsToCarry');
+const Location = require('../../models/Location');
+
 
 
 const loginSuperAdmin = async (req, res) => {
@@ -221,7 +223,7 @@ const addThingsToCarry = async (req, res) => {
       return res.status(400).json({ message: 'Name and location_id are required' });
     }
 
-    const location = await SuperAdminDb.findOne({ 
+    const location = await Location.findOne({ 
       _id: location_id,
       is_deleted: false 
     });
