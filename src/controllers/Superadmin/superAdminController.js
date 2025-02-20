@@ -121,7 +121,7 @@ const getReviewCompletedData = async (req, res) => {
   
     try {
     
-      if (!place_name || !Location || !Nearby || !best_time) {
+      if (!place_name || !Location) {
         return res.status(400).json({ message: 'Missing Information' });
       }
   
