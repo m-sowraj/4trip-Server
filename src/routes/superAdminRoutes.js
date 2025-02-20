@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const {createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,placesToVist,loginSuperAdmin,placesToVisit,getPlaceToVist}=require('../controllers/Superadmin/superAdminController')
+const {
+  createSuperAdmin,
+  getReviewCompletedData,
+  getYetToBeReviewedData,
+  placesToVisit,
+  loginSuperAdmin,
+  getPlaceToVist,
+  updatePlace,
+} = require('../controllers/Superadmin/superAdminController');
 
 
 // const uploadFields = [
@@ -10,6 +18,7 @@ const {createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,placesToVi
 //   ];
   
   router.post('/places', placesToVisit);
+  router.put('/places/:id', updatePlace);
   router.get('/completed_data',getReviewCompletedData);
   router.get('/reviewdata',getYetToBeReviewedData);
   router.post('/login',loginSuperAdmin);

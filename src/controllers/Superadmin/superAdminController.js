@@ -146,6 +146,7 @@ const getReviewCompletedData = async (req, res) => {
         longitude,
         latitude,
         short_summary:req.body.short_summary,
+        is_deleted: false,
         // media: { images, videos }, 
       });
   
@@ -157,27 +158,61 @@ const getReviewCompletedData = async (req, res) => {
     }
   };
 
-const getPlaceToVist=async(req,res)=>{
+const getPlaceToVist = async (req, res) => {
+  const { location } = req.body;
 
-const {location}=req.body
-
-try{
-    const places= await SuperAdminDb.find(location);
-    if(!places){
-        return res.status(400).json({message:"no places found"})
+  try {
+    const query = location ? { location, is_deleted: false } : { is_deleted: false };
+    const places = await SuperAdminDb.find(query);
+    
+    if (!places || places.length === 0) {
+      return res.status(404).json({ message: "no places found" });
     }
-    return res.status(200).json({data:places});
-}
-
-catch (error) {
+    return res.status(200).json({ data: places });
+  } catch (error) {
     return res.status(500).json({ message: error.message });
-
   }
+};
 
-}
+const updatePlace = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
 
+  try {
+    // Don't allow updating of is_deleted through this endpoint
+    delete updates._id; // Prevent _id modification
+    delete updates.is_deleted; // Prevent direct is_deleted modification
 
-module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist}
+    const place = await SuperAdminDb.findOne({ _id: id, is_deleted: false });
+    
+    if (!place) {
+      return res.status(404).json({ message: "Place not found" });
+    }
+
+    // If is_deleted is being set to true, handle deletion
+    if (updates.delete === true) {
+      place.is_deleted = true;
+      await place.save();
+      return res.status(200).json({ message: "Place deleted successfully" });
+    }
+
+    // Handle regular updates
+    const updatedPlace = await SuperAdminDb.findByIdAndUpdate(
+      id,
+      { ...updates },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({ 
+      message: "Place updated successfully", 
+      data: updatedPlace 
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports={loginSuperAdmin,createSuperAdmin,getReviewCompletedData,getYetToBeReviewedData,reviewRegistration,placesToVisit,getPlaceToVist,updatePlace}
 
 
   
