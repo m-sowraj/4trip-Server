@@ -252,7 +252,7 @@ const getThingsToCarry = async (req, res) => {
   try {
     const { location_id } = req.params;
 
-    const location = await SuperAdminDb.findOne({ 
+    const location = await Location.findOne({ 
       _id: location_id,
       is_deleted: false 
     });
@@ -287,7 +287,7 @@ const updateThingsToCarry = async (req, res) => {
       return res.status(400).json({ message: 'Name is required' });
     }
 
-    const location = await SuperAdminDb.findOne({
+    const location = await Location.findOne({
       _id: location_id,
       is_deleted: false
     });
@@ -323,7 +323,7 @@ const deleteThingsToCarry = async (req, res) => {
   try {
     const { location_id, item_id } = req.params;
 
-    const location = await SuperAdminDb.findOne({
+    const location = await Location.findOne({
       _id: location_id,
       is_deleted: false
     });
