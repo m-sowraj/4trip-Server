@@ -84,9 +84,7 @@ const GetAllUsers = async (req, res) => {
     if (req.query.status) {
       filters.status = req.query.status;
     }
-    if (req.query.isNew !== undefined) {
-      filters.isNew = req.query.isNew == 'true';
-    }
+    filters.isNew = "false";
     
     console.log(filters);
     const users = await RegistrationModel.find(filters).select('-password');
