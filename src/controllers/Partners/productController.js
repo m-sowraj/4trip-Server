@@ -39,7 +39,7 @@ const updateProduct = async (req, res) => {
 const getProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-            .populate('registration_id');
+            .populate('createdBy');
 
         if (!product) {
             return res.status(404).json({ error: 'Product not found' });
@@ -74,7 +74,7 @@ const getProducts = async (req, res) => {
         }
 
         const products = await Product.find(filter)
-            .populate('registration_id')
+            .populate('createdBy')
             .sort({ createdAt: -1 });
 
         res.json(products);
