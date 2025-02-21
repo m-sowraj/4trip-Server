@@ -17,6 +17,9 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     const updates = Object.keys(req.body);
 
+    const allowedUpdates = ['name', 'description', 'price', 'discounted_price', 'images', 'is_active', 'is_deleted'];
+    const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+
     if (!isValidOperation) {
         return res.status(400).json({ error: 'Invalid updates!' });
     }
