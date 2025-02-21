@@ -21,11 +21,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    discount_percentage: {
+    discounted_price: {
         type: Number,
-        default: 0,
-        min: 0,
-        max: 100
+    
+       
     },
     images: [{
         type: String
