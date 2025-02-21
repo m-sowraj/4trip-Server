@@ -40,7 +40,7 @@ const getProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
             .populate('registration_id');
-        
+
         if (!product) {
             return res.status(404).json({ error: 'Product not found' });
         }
@@ -53,11 +53,11 @@ const getProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
     try {
-        const { registration_id, search, category, minPrice, maxPrice } = req.query;
+        const { createdBy, search, category, minPrice, maxPrice } = req.query;
         const filter = {};
 
     
-        if (registration_id) filter.registration_id = registration_id;
+        if (createdBy) filter.createdBy = createdBy;
         if (category) filter.category = category;
         if (search) {
             filter.$or = [

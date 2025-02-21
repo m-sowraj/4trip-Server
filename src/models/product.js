@@ -1,20 +1,11 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    registration_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'registrationType',
-        required: true
-    },
+
     name: {
         type: String,
         required: true,
         trim: true
-    },
-    location_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Location'
     },
     description: {
         type: String,
@@ -45,11 +36,16 @@ const productSchema = new mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'registrationType'
     },
     is_deleted: {
         type: Boolean,
         default: false
+    },
+    location_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Location'
     }
 }, {
     timestamps: true
