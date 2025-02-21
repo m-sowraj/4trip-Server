@@ -11,6 +11,7 @@ const CommonAuthRoutes = require('./src/routes/commonauth')
 const activityRoutes = require('./src/routes/activityRoutes');
 const managebookingRoutes = require('./src/routes/managebookingRoutes');
 const locationRoutes = require('./src/routes/locationRoutes');
+const productRoutes = require('./src/routes/productRoutes');
 const app = express();
 
 // Connect to MongoDB
@@ -32,6 +33,7 @@ app.use('/api/commonauth',CommonAuthRoutes)
 app.use("/api/activity", activityRoutes);
 app.use('/api/managebooking', managebookingRoutes);
 app.use('/api/locations', locationRoutes);
+app.use('/api/products', productRoutes);
 
 
 // Error handling middleware

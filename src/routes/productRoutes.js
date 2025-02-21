@@ -8,9 +8,9 @@ const {
 } = require('../controllers/Partners/productController');
 
 
-router.get('product/', getProducts);
-router.get('product/:id', getProduct);
-router.post('product/', createProduct);
-router.put('product/:id', updateProduct);
+router.get('/', getProducts);
+router.get('/:id', getProduct);
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
 
 module.exports = router;
