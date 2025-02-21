@@ -53,12 +53,14 @@ const getProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
     try {
-        const { createdBy, search, category, minPrice, maxPrice } = req.query;
+        const { createdBy, search, category, minPrice, maxPrice, is_active, is_deleted } = req.query;
         const filter = {};
 
     
         if (createdBy) filter.createdBy = createdBy;
         if (category) filter.category = category;
+        if (is_active) filter.is_active = is_active;
+        if (is_deleted) filter.is_deleted = is_deleted;
         if (search) {
             filter.$or = [
                 { name: { $regex: search, $options: 'i' } },

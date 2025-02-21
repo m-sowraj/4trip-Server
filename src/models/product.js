@@ -45,7 +45,16 @@ const productSchema = new mongoose.Schema({
     location_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Location'
+    },
+    is_deleted: {
+        type: Boolean,
+        default: false
+    },
+    is_active: {
+        type: Boolean,
+        default: true
     }
+
 }, {
     timestamps: true
 });
