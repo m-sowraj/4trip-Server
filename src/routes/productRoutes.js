@@ -10,7 +10,7 @@ const auth = require('../middleware/auth');
 
 router.get('/',  getProducts);
 router.get('/:id', getProduct);
-router.post('/', auth, createProduct);
-router.put('/:id', auth, updateProduct);
+router.post('/', createProduct);
+router.put('/:id',  updateProduct);
 
 module.exports = router;
