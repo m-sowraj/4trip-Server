@@ -5,7 +5,7 @@ const createDish = async (req, res) => {
         if(req.user.reg_type !== 'partner' || req.user.select_category !== 'restaurant'){
             return res.status(403).json({ error: 'Unauthorized to create dish' });
         }
-        const dish = new Dish(req.body , {created_by: req.user._id} );
+        const dish = new Dish({...req.body , created_by: req.user._id} );
         await dish.save();
         res.status(201).json(dish);
     } catch (error) {
