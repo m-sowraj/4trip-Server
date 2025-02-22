@@ -2,7 +2,10 @@ const Dish = require('../../models/Dish');
 
 const createDish = async (req, res) => {
     try {
-        const dish = new Dish(req.body);
+        if(req.user.reg_type !== 'partner' || req.user.select_category !== 'restaurant'){
+            return res.status(403).json({ error: 'Unauthorized to create dish' });
+        }
+        const dish = new Dish(req.body , {created_by: req.user._id} );
         await dish.save();
         res.status(201).json(dish);
     } catch (error) {
@@ -33,6 +36,10 @@ const getDishes = async (req, res) => {
             filters.availability = req.query.availability == 'true';
         }
 
+        if (req.user.reg_type === 'partner' && req.user.select_category === 'restaurant'){
+            filters.created_by = req.user._id;
+        }
+
         const dishes = await Dish.find(filters);
         res.json(dishes);
     } catch (error) {
@@ -55,7 +62,7 @@ const getDishById = async (req, res) => {
 // Update Dish
 const updateDish = async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['name', 'price', 'discounted_price', 'image', 'description', 'category', 'partner_id', 'availability'];
+    const allowedUpdates = ['name', 'price', 'discounted_price', 'image_url', 'description', 'category' , 'is_active' , 'is_deleted'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
 
     if (!isValidOperation) {

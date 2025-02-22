@@ -13,8 +13,8 @@ const dishSchema = new mongoose.Schema({
     discounted_price: {
         type: Number,
     },
-    image: {
-        type: Buffer,
+    image_url: {
+        type: String,
         trim: true,
     },
     description: {
@@ -23,17 +23,16 @@ const dishSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['veg', 'non-veg', 'spicy', 'no garlic or onion', 'best seller', 'dish of the day'],
+        enum: ['veg', 'non-veg'],
         required: true,
     },
-    availability: {
-        type: Boolean,
-        default: true, 
-    },
-    partner_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'registrationType', 
-    required: true,
+  is_active: {
+    type: Boolean,
+    default: true
+  },
+  is_deleted: {
+    type: Boolean,
+    default: false
   },
     createdAt: {
         type: Date,
@@ -43,14 +42,11 @@ const dishSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    is_deleted: {
-        type: Boolean,
-        default: false
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'registrationType',
+        required: true
     },
-    available: {
-        type: Boolean,
-        default: true
-    }
 }, {
     timestamps: true
 });

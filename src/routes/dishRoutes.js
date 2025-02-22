@@ -7,15 +7,15 @@ const {
     updateDish,
     deleteDish
 } = require('./../controllers/Partners/dishController');
-const agentAuth = require('../middleware/userAuth');
+const UserAuth = require('../middleware/userAuth');
 
 // Public routes
-router.post('/', createDish);
-router.get('/', getDishes);
-router.get('/:id', getDishById);
+router.post('/',UserAuth, createDish);
+router.get('/', UserAuth, getDishes);
+router.get('/:id', UserAuth, getDishById);
 
 //protected-routes
-router.put('/:id', updateDish);
-router.delete('/:id', deleteDish);
+router.put('/:id', UserAuth, updateDish);
+router.delete('/:id', UserAuth, deleteDish);
 
 module.exports = router; 

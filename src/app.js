@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(express.json());
 
 // Routes
-app.use('/api/superadmin', superAdminRoutes);
+app.use('/api/superadmin',  superAdminRoutes);
 app.use('/api/agents', agentRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/dishes', dishRoutes);
