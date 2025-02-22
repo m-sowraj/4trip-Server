@@ -6,11 +6,11 @@ const {
     getProduct,
     getProducts
 } = require('../controllers/Partners/productController');
-const auth = require('../middleware/auth');
+const UserAuth = require('../middleware/userAuth');
 
-router.get('/',  getProducts);
-router.get('/:id', getProduct);
-router.post('/', createProduct);
-router.put('/:id',  updateProduct);
+router.get('/',  UserAuth,getProducts);
+router.get('/:id', UserAuth,getProduct);
+router.post('/',UserAuth, createProduct);
+router.put('/:id',UserAuth, updateProduct);
 
 module.exports = router;

@@ -40,7 +40,7 @@ const updateActivity = async (req, res) => {
 const getActivity = async (req, res) => {
         try {
             const activity = await Activity.findById(req.params.id)
-                .populate('registration_id');
+                .populate('CreatedBy');
 
             if (!activity) {
                 return res.status(404).json({ success: false, error: 'Activity not found' });
@@ -55,13 +55,16 @@ const getActivity = async (req, res) => {
 const getActivities = async (req, res) => {
         try {
             const {
-                registration_id,
                 search
             } = req.query;
 
             const query = {};
 
-            if (registration_id) query.registration_id = registration_id;
+            if(req.user.reg_type === 'partner' && req.user.select_category === 'activity'){
+                query.CreatedBy = req.user._id;
+            }
+
+
             if (search) {
                 query.$or = [
                     { title: { $regex: search, $options: 'i' } },
@@ -69,7 +72,7 @@ const getActivities = async (req, res) => {
                 ];
             }
             const activities = await Activity.find(query)
-                .populate('registration_id')
+                .populate('CreatedBy')
 
             res.json({
                 success: true,
