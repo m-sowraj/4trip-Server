@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
-    registration_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'registrationType',
-        required: true
-    },
     title: {
         type: String,
         required: true,
@@ -66,10 +61,20 @@ const activitySchema = new mongoose.Schema({
     CreatedBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        ref: 'registrationType',
     },
     is_deleted: {
         type: Boolean,
         default: false
+    },
+    is_active: {
+        type: Boolean,
+        default: true
+    },
+    location_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'location',
+        required: true
     }
 }, {
     timestamps: true

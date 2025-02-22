@@ -53,10 +53,12 @@ const registrationType = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    image: 
-    { 
-      type: Buffer 
-    },
+    image_url: [
+      {
+        type: String,
+        default: '',
+      },
+    ],
     address: {
       type: String,
       default: '',
@@ -81,6 +83,11 @@ const registrationType = new mongoose.Schema(
       closingTime: {
         type: String,
         default: '',
+      },
+      location_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'location',
+        required: true
       },
       
   },

@@ -2,9 +2,11 @@ const Activity = require('../../models/activity');
 
 const createActivity = async (req, res) => {
         try {
+            if(req.user.reg_type !== 'partner' || req.user.select_category !== 'activity'){
+                return res.status(403).json({ error: 'Unauthorized to create activity' });
+            }
             const activity = new Activity({
                 ...req.body,
-                registration_id: req.user._id,
                 CreatedBy: req.user._id
             });
             await activity.save();

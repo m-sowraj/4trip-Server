@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const Registration = async (req, res) => {
   try {
     
-    const checkByMail = await RegistrationModel.findOne({ email: req.body.email , reg_type: req.body.reg_type , select_category: req.body.select_category });
-    const checkByPhone = await RegistrationModel.findOne({ phone_number: req.body.phone_number , reg_type: req.body.reg_type , select_category: req.body.select_category });
+    const checkByMail = await RegistrationModel.findOne({ email: req.body.email  });
+    const checkByPhone = await RegistrationModel.findOne({ phone_number: req.body.phone_number });
 
     if (checkByMail || checkByPhone) {
       return res.status(400).json({ message: "The email or phone number is already registered" });

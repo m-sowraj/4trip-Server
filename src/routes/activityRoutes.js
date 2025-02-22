@@ -5,8 +5,8 @@ const UserAuth = require('../middleware/userAuth');
 
 
 router.post('/',UserAuth, activityController.createActivity);
-router.put('/:id', activityController.updateActivity);
-router.get('/:id', activityController.getActivity);
-router.get('/', activityController.getActivities);
+router.put('/:id',UserAuth, activityController.updateActivity);
+router.get('/:id',UserAuth, activityController.getActivity);
+router.get('/',UserAuth, activityController.getActivities);
 
 module.exports = router;
