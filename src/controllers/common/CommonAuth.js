@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const Registration = async (req, res) => {
   try {
     
-    const checkByMail = await RegistrationModel.findOne({ email: req.body.email });
-    const checkByPhone = await RegistrationModel.findOne({ phone_number: req.body.phone_number });
+    const checkByMail = await RegistrationModel.findOne({ email: req.body.email , reg_type: req.body.reg_type , select_category: req.body.select_category });
+    const checkByPhone = await RegistrationModel.findOne({ phone_number: req.body.phone_number , reg_type: req.body.reg_type , select_category: req.body.select_category });
 
     if (checkByMail || checkByPhone) {
       return res.status(400).json({ message: "The email or phone number is already registered" });
@@ -28,7 +28,7 @@ const Registration = async (req, res) => {
 const Login = async (req, res) => {
   try {
     if (req.body.email) {
-    const user = await RegistrationModel.findOne({ email: req.body.email });
+    const user = await RegistrationModel.findOne({ email: req.body.email, is_deleted: false , is_active: true , reg_type: req.body.reg_type , select_category: req.body.select_category });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -37,10 +37,10 @@ const Login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign({ id: user._id }, 'your_jwt_secret_key', { expiresIn: '7d' });
-    res.status(200).json({ message: "Login successful", data: user, token });
+    res.status(200).json({ message: "Login successful", data: user, token , reg_type: user.reg_type , select_category: user.select_category });
   }
   else if (req.body.phone_number) {
-    const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number });
+    const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number, is_deleted: false , is_active: true , reg_type: req.body.reg_type , select_category: req.body.select_category });
     if (!user) {
       return res.status(400).json({ message: "Invalid phone number or password" });
     }
@@ -49,7 +49,7 @@ const Login = async (req, res) => {
       return res.status(400).json({ message: "Invalid phone number or password" });
     }
     const token = jwt.sign({ id: user._id  }, 'your_jwt_secret_key', { expiresIn: '7d' });
-    res.status(200).json({ message: "Login successful", data: user, token });
+    res.status(200).json({ message: "Login successful", data: user, token , reg_type: user.reg_type , select_category: user.select_category });
   }
 
 

@@ -15,13 +15,13 @@ const registrationType = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       trim: true,
     },
     phone_number: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       trim: true,
     },
     select_category: {
