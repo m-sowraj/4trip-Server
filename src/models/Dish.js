@@ -47,6 +47,11 @@ const dishSchema = new mongoose.Schema({
         ref: 'registrationType',
         required: true
     },
+    location_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Location',
+        required: true
+    },
 }, {
     timestamps: true
 });

@@ -73,7 +73,7 @@ const activitySchema = new mongoose.Schema({
     },
     location_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'location',
+        ref: 'Location',
         required: true
     }
 }, {

@@ -4,7 +4,9 @@ const Product = require('../../models/product');
 const createProduct = async (req, res) => {
     try {
         const product = new Product({
-            ...req.body
+            ...req.body,
+            location_id: req.user.location_id   ,
+            createdBy: req.user._id
         });
         await product.save();
         res.status(201).json(product);

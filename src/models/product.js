@@ -53,7 +53,12 @@ const productSchema = new mongoose.Schema({
     is_active: {
         type: Boolean,
         default: true
-    }
+    },
+    location_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Location',
+        required: true
+    },
 
 }, {
     timestamps: true

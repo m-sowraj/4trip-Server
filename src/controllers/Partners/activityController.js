@@ -7,7 +7,8 @@ const createActivity = async (req, res) => {
             }
             const activity = new Activity({
                 ...req.body,
-                CreatedBy: req.user._id
+                CreatedBy: req.user._id,
+                location_id: req.user.location_id
             });
             await activity.save();
             res.status(201).json({ success: true, data: activity });
