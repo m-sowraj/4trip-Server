@@ -7,12 +7,12 @@ const {
     updateReview,
     deleteReview
 } = require('../controllers/reviewController');
+const UserAuth = require('../middleware/userAuth');
 
-
-router.post('/', createReview);
-router.get('/', getReviews);
-router.get('/:id', getReviewById);
-router.patch('/:id', updateReview);
-router.delete('/:id', deleteReview);
+router.post('/',UserAuth, createReview);
+router.get('/',UserAuth, getReviews);
+router.get('/:id',UserAuth, getReviewById);
+router.patch('/:id',UserAuth, updateReview);
+router.delete('/:id',UserAuth, deleteReview);
 
 module.exports = router; 
