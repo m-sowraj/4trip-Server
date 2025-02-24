@@ -3,7 +3,7 @@ const Booking = require('../../../models/Booking');
 // Create Booking
 const createBooking = async (req, res) => {
     try {
-        const booking = new Booking(req.body ,created_by = req.user._id);
+        const booking = new Booking({...req.body,  created_by: req.user._id });
         await booking.save();
         res.status(201).json(booking);
     } catch (error) {
