@@ -37,22 +37,14 @@ const SuperAdminSchema = new mongoose.Schema({
     type: Boolean,
     default: false
 },
-  media: {
-    images: [
-      {
-        data: Buffer, 
-        mimeType: String, 
-        originalName: String,
-      },
-    ],
-    videos: [
-      {
-        data: Buffer, 
-        mimeType: String, 
-        originalName: String, 
-      },
-    ],
+image_urls:[
+  {
+    type: String,
+    trim: true,
   }
+ ],
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('SuperAdmin', SuperAdminSchema);
