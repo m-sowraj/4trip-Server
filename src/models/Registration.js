@@ -59,6 +59,10 @@ const registrationType = new mongoose.Schema(
         default: '',
       },
     ],
+    logo_url: {
+      type: String,
+      default: '',
+    },
     address: {
       type: String,
       default: '',
