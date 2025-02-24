@@ -86,8 +86,7 @@ const registrationType = new mongoose.Schema(
       },
       location_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'location',
-        required: true
+        ref: 'location'
       },
       
   },
