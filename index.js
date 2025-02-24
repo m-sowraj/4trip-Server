@@ -12,6 +12,7 @@ const activityRoutes = require('./src/routes/activityRoutes');
 const managebookingRoutes = require('./src/routes/managebookingRoutes');
 const locationRoutes = require('./src/routes/locationRoutes');
 const productRoutes = require('./src/routes/productRoutes');
+const fileUploadRoutes = require('./src/routes/fileUploadRoutes');
 const app = express();
 
 // Connect to MongoDB
@@ -34,7 +35,7 @@ app.use("/api/activity", activityRoutes);
 app.use('/api/managebooking', managebookingRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/products', productRoutes);
-
+app.use('/api/upload', fileUploadRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -45,4 +46,4 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-}); 
+});
