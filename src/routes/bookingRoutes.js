@@ -9,15 +9,16 @@ const {
     deleteBooking,
     getallBooking
 } = require('./../controllers/Agent/CustomerSide/bookingController');
+const UserAuth = require('../middleware/userAuth');
 
 // Public routes
 router.post('/verify', verifyBooking);
-router.get('/:id', getBooking);
-router.get('/', getallBooking);
+router.get('/:id',UserAuth , getBooking);
+router.get('/',UserAuth , getallBooking);
 
 // Protected routes (only agents can create/update/delete bookings)
-router.post('/',  createBooking);
-router.patch('/:id', updateBooking);
-router.delete('/:id',  deleteBooking);
+router.post('/', UserAuth , createBooking);
+router.patch('/:id',UserAuth , updateBooking);
+router.delete('/:id', UserAuth , deleteBooking);
 
 module.exports = router; 

@@ -26,6 +26,11 @@ const bookingSchema = new mongoose.Schema({
     required: true,
     ref: 'Location' 
   },
+  "created_by":{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'registrationType',
+    required: true
+  },
  
   "amt_earned": {
     type: Number,

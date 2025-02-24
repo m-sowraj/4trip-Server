@@ -3,7 +3,7 @@ const Booking = require('../../../models/Booking');
 // Create Booking
 const createBooking = async (req, res) => {
     try {
-        const booking = new Booking(req.body);
+        const booking = new Booking(req.body ,created_by = req.user._id);
         await booking.save();
         res.status(201).json(booking);
     } catch (error) {
@@ -46,7 +46,12 @@ const getBooking = async (req, res) => {
 
 const getallBooking = async (req, res) => {
     try {
-        const booking = await Booking.find()
+        filter = {}
+        if (req.user.reg_type == 'agent'){
+            filter = { created_by: req.user._id }
+        }
+
+        const booking = await Booking.find(filter)
             .populate('agent_id')
             .populate('Destination_id');
         if (!booking) {
