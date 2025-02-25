@@ -117,7 +117,7 @@ const getReviewCompletedData = async (req, res) => {
   
 
   const placesToVisit = async (req, res) => {
-    const { place_name, Location, Nearby, best_time , latitude,longitude } = req.body;
+    const { place_name, Location, Nearby, best_time , latitude,longitude , image_urls } = req.body;
   
     try {
     
@@ -150,6 +150,7 @@ const getReviewCompletedData = async (req, res) => {
         latitude,
         short_summary:req.body.short_summary,
         is_deleted: false,
+        image_urls
         // media: { images, videos }, 
       });
   
