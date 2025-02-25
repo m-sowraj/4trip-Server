@@ -97,7 +97,7 @@ const GetAllUsers = async (req, res) => {
     filters.isNew = "false";
     
     console.log(filters);
-    const users = await RegistrationModel.find(filters).select('-password');
+    const users = await RegistrationModel.find(filters).select('-password').populate('location_id');
     res.status(200).json({ data: users });
   } catch (error) {
     res.status(400).json({ error: error.message });

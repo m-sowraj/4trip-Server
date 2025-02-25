@@ -81,7 +81,7 @@ const getReviewCompletedData = async (req, res) => {
       const CompleteData = await RegistrationDb.find({ isNew: "true" }).select('-password')  
         .select('-password')  
         .skip(skipValue)  
-        .limit(limit);  
+        .limit(limit).populate("location_id"); 
   
       if (CompleteData.length === 0) {
         return res.status(404).json({ message: "No records available" });
@@ -97,8 +97,7 @@ const getReviewCompletedData = async (req, res) => {
     const { id, isapproved } = req.body;
   
     try {
-      const all_Data = await RegistrationDb.findById(id);
-  
+      const all_Data = await RegistrationDb.findById(id).populate("location_id")  
       if (!all_Data) {
         return res.status(404).json({ message: "Data not found" });
       }

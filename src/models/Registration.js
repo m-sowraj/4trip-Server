@@ -87,11 +87,7 @@ const registrationType = new mongoose.Schema(
       closingTime: {
         type: String,
         default: '',
-      },
-      location_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'location'
-      },
+      }
       
   },
   is_deleted: {
@@ -101,6 +97,10 @@ const registrationType = new mongoose.Schema(
 status:{
   type: "String",
   
+},
+location_id: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Location'
 },
   shopType: {
     type: String,
