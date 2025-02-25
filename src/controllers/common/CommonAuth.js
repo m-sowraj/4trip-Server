@@ -28,10 +28,16 @@ const Registration = async (req, res) => {
 const Login = async (req, res) => {
   try {
     if (req.body.email) {
-    const user = await RegistrationModel.findOne({ email: req.body.email, is_deleted: false , isActive: true , reg_type: req.body.reg_type , select_category: req.body.select_category });
+    const user = await RegistrationModel.findOne({ email: req.body.email, is_deleted: false , isActive: true , isNew:false , reg_type: req.body.reg_type , select_category: req.body.select_category });
     if (!user) {
+    const user = await RegistrationModel.findOne({ email: req.body.email, reg_type: req.body.reg_type , isNew:true, select_category: req.body.select_category });
+    if (user) {
+      return res.status(400).json({ message: "Account is Not Activated" });
+    }
       return res.status(400).json({ message: "Invalid email or password" });
     }
+   
+
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
@@ -40,8 +46,12 @@ const Login = async (req, res) => {
     res.status(200).json({ message: "Login successful", data: user, token , reg_type: user.reg_type , select_category: user.select_category });
   }
   else if (req.body.phone_number) {
-    const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number, is_deleted: false , isActive: true , reg_type: req.body.reg_type , select_category: req.body.select_category });
+    const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number, is_deleted: false , isActive: true , isNew:false, reg_type: req.body.reg_type , select_category: req.body.select_category });
     if (!user) {
+      const user = await RegistrationModel.findOne({ phone_number: req.body.phone_number, reg_type: req.body.reg_type , isNew:true, select_category: req.body.select_category });
+      if (user) {
+        return res.status(400).json({ message: "Account is Not Activated" });
+      }
       return res.status(400).json({ message: "Invalid phone number or password" });
     }
     const isMatch = await bcrypt.compare(req.body.password, user.password);
