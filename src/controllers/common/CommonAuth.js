@@ -95,6 +95,11 @@ const GetAllUsers = async (req, res) => {
       filters.status = req.query.status;
     }
     filters.isNew = "false";
+
+    if (req.authType == "booking"){
+      filters.location_id = req.booking.location_id;
+      filters.isActive = true;
+    }
     
     console.log(filters);
     const users = await RegistrationModel.find(filters).select('-password').populate('location_id');

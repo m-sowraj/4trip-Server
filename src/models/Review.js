@@ -16,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
         min: 1,
         max: 5,
     },
-    registration_id:{
+    created_by:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'RegistrationType',
         required: true,

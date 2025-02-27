@@ -36,9 +36,17 @@ const getDishes = async (req, res) => {
             filters.availability = req.query.availability == 'true';
         }
 
+        if (req.authType == "user"){
+
         if (req.user.reg_type === 'partner' && req.user.select_category === 'restaurant'){
             filters.created_by = req.user._id;
         }
+    }
+    else{
+        filters.location_id = req.booking.location_id;
+        filters.is_active = true;
+        filters.is_deleted = false;
+    }
 
         const dishes = await Dish.find(filters);
         res.json(dishes);

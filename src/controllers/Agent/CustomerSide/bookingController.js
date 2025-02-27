@@ -1,4 +1,5 @@
 const Booking = require('../../../models/Booking');
+const jwt = require('jsonwebtoken');
 
 // Create Booking
 const createBooking = async (req, res) => {
@@ -18,13 +19,22 @@ const verifyBooking = async (req, res) => {
         const booking = await Booking.findOne({
             _id: booking_id,
             name: name
-        });
+        }).populate('created_by');
 
         if (!booking) {
             return res.status(401).json({ error: 'Invalid booking credentials' });
         }
 
-        res.json(booking);
+        const token = jwt.sign(
+            { id: booking._id, type: 'booking' }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '100d' }
+        );
+
+        res.json({
+            booking,
+            token
+        });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -107,4 +117,4 @@ module.exports = {
     updateBooking,
     deleteBooking,
     getallBooking
-}; 
+};

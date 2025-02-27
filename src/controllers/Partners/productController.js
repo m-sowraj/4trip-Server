@@ -71,9 +71,16 @@ const getProducts = async (req, res) => {
             if (minPrice) filter.price.$gte = Number(minPrice);
             if (maxPrice) filter.price.$lte = Number(maxPrice);
         }
+
+        if(req.authType == "user") {
         if(req.user.reg_type === 'partner' && req.user.select_category === 'product'){
             filter.createdBy = req.user._id;
         }
+    } else {
+        filter.is_active = true;
+        filter.is_deleted = false;
+        filter.location_id = req.booking.location_id;
+    }
 
         const products = await Product.find(filter)
             .populate('createdBy')

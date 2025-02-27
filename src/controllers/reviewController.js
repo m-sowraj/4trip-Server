@@ -2,7 +2,7 @@ const Review = require('../models/Review');
 
 const createReview = async (req, res) => {
     try {
-        const review = new Review(req.body);
+        const review = new Review({...req.body, "created_by" : req.body.created_by});
         await review.save();
         res.status(201).json(review);
     } catch (error) {

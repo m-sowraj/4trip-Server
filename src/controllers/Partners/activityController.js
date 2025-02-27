@@ -2,7 +2,7 @@ const Activity = require('../../models/activity');
 
 const createActivity = async (req, res) => {
         try {
-            if(req.user.reg_type !== 'partner' || req.user.select_category !== 'activity'){
+            if( req?.authType == "booking" ||  req?.user?.reg_type !== 'partner' || req?.user?.select_category !== 'activity'){
                 return res.status(403).json({ error: 'Unauthorized to create activity' });
             }
             const activity = new Activity({
@@ -19,6 +19,10 @@ const createActivity = async (req, res) => {
 
 const updateActivity = async (req, res) => {    
         try {
+
+            if( req?.authType == "booking" ||  req?.user?.reg_type !== 'partner' || req?.user?.select_category !== 'activity'){
+                return res.status(403).json({ error: 'Unauthorized to update activity' });
+            }
             const activity = await Activity.findOneAndUpdate(
                 { 
                     _id: req.params.id
@@ -59,11 +63,16 @@ const getActivities = async (req, res) => {
             } = req.query;
 
             const query = {};
-
-            if(req.user.reg_type === 'partner' && req.user.select_category === 'activity'){
-                query.CreatedBy = req.user._id;
+            if (req.authType == "user"){
+                if(req.user.reg_type === 'partner' && req.user.select_category === 'activity'){
+                    query.CreatedBy = req.user._id;
+                }    
+            } else {
+                query.is_deleted = false;
+                query.location_id = req.booking.location_id;
+                query.is_active = true;
             }
-
+        
 
             if (search) {
                 query.$or = [
