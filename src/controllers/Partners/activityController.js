@@ -64,7 +64,7 @@ const getActivities = async (req, res) => {
 
             const query = {};
             if (req.authType == "user"){
-                if(req.user.reg_type === 'partner' && req.user.select_category === 'activity'){
+                if(req.user.reg_type === 'partner' && req.user.select_category === 'activities'){
                     query.CreatedBy = req.user._id;
                 }    
             } else {
