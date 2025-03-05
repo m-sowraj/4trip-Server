@@ -73,7 +73,7 @@ const getProducts = async (req, res) => {
         }
 
         if(req.authType == "user") {
-        if(req.user.reg_type === 'partner' && req.user.select_category === 'product'){
+        if(req.user.reg_type === 'partner' && req.user.select_category === 'shop'){
             filter.createdBy = req.user._id;
         }
     } else {
